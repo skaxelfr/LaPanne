@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#1B3A57" />
+<meta name="description" content="Vote du groupe pour le séjour à La Panne (Côte belge), 17–21 octobre 2026. 8 demi-journées (dimanche→mercredi), options beau temps / mauvais temps, sans repas ni baignade, adapté à fin octobre. Export WhatsApp, synthèse des résultats." />
+<title>🏖️ Vote Séjour La Panne · 17–21 oct. 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#1B3A57;
+  --navy-dark:#0F2A41;
+  --navy-light:#2A5A82;
+  --navy-soft:#3F779E;
+  --sand:#F4E9D4;
+  --sand-light:#FBF6EC;
+  --sand-dark:#E8D7AE;
+  --sand-deep:#D4BD86;
+  --green:#4A7C59;
+  --green-light:#6BA47D;
+  --green-dark:#2F5942;
+  --gold:#D4A75D;
+  --gold-soft:#E8C688;
+  --white:#FFFFFF;
+  --gray:#6C757D;
+  --gray-light:#E9ECEF;
+  --gray-med:#AAB2B8;
+  --danger:#C8553D;
+  --radius:14px;
+  --shadow-sm:0 1px 3px rgba(16,39,64,.10);
+  --shadow:0 4px 12px rgba(16,39,64,.14);
+  --shadow-lg:0 10px 30px rgba(16,39,64,.22);
+  --font:'Nunito',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--font);
+  font-size:18px;
+  line-height:1.55;
+  color:var(--navy-dark);
+  background:
+    radial-gradient(1200px 500px at 80% -10%, rgba(212,167,93,.10) 0%, transparent 60%),
+    radial-gradient(900px 600px at -10% 100%, rgba(74,124,89,.08) 0%, transparent 60%),
+    var(--sand-light);
+  padding-bottom:120px;
+  min-height:100vh;
+}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
+
+/* HEADER */
+.header{
+  position:sticky;top:0;z-index:100;
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 55%,var(--navy-soft) 100%);
+  color:var(--white);
+  box-shadow:var(--shadow);
+}
+.header-inner{
+  max-width:900px;margin:0 auto;
+  padding:12px 16px;
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.header-titles{flex:1 1 220px;min-width:220px}
+.header-titles h1{font-size:1.2rem;font-weight:900;letter-spacing:-.01em;line-height:1.2}
+.header-titles p{font-size:.85rem;opacity:.88;margin-top:2px}
+.header-controls{display:flex;gap:8px;align-items:center;flex:1 1 220px;flex-wrap:wrap}
+.voter-select{
+  font-family:inherit;font-size:1rem;font-weight:800;
+  padding:11px 14px;border:2px solid var(--sand);
+  border-radius:12px;background:var(--white);color:var(--navy-dark);
+  flex:1 1 140px;min-width:140px;cursor:pointer;
+  -webkit-appearance:none;appearance:none;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%231B3A57' d='M6 8L0 0h12z'/></svg>");
+  background-repeat:no-repeat;background-position:right 14px center;padding-right:38px;
+}
+.btn-toggle{
+  font-family:inherit;font-size:.92rem;font-weight:800;
+  padding:11px 16px;border:2px solid var(--sand);border-radius:12px;
+  background:var(--gold);color:var(--navy-dark);cursor:pointer;
+  transition:transform .12s ease,background .15s ease;
+}
+.btn-toggle:hover{transform:translateY(-1px)}
+.btn-toggle[aria-pressed="true"]{background:var(--white)}
+
+main{max-width:900px;margin:0 auto;padding:16px}
+
+.intro{
+  background:var(--white);
+  border-radius:var(--radius);
+  padding:16px 18px;margin-bottom:16px;
+  box-shadow:var(--shadow-sm);
+  border-left:5px solid var(--green);
+}
+.intro p{font-size:.94rem}
+.intro strong{color:var(--green-dark)}
+.intro .hint{display:block;margin-top:8px;font-size:.82rem;color:var(--gray)}
+
+/* CARDS */
+.cards{display:flex;flex-direction:column;gap:18px}
+.cards.hidden,.intro.hidden{display:none}
+
+.slot-card{
+  background:var(--white);
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  border:1px solid var(--sand);
+}
+.slot-header{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);
+  color:var(--white);
+  padding:14px 16px;
+}
+.slot-num{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--gold);color:var(--navy-dark);font-weight:900;
+  width:34px;height:34px;border-radius:50%;
+  font-size:1rem;margin-right:10px;vertical-align:middle;
+}
+.slot-header h2{display:inline;font-size:1.12rem;font-weight:900;vertical-align:middle}
+.slot-sub{display:block;margin:6px 0 0 44px;font-size:.85rem;opacity:.92;font-weight:600}
+
+.weather-section{padding:14px 16px 6px}
+.weather-section.sun{background:linear-gradient(180deg,rgba(232,199,136,.18) 0%,transparent 100%)}
+.weather-section.rain{background:linear-gradient(180deg,rgba(27,58,87,.07) 0%,transparent 100%);border-top:1px dashed var(--sand-dark)}
+.weather-title{
+  display:flex;align-items:center;gap:8px;
+  font-size:1.08rem;font-weight:900;margin-bottom:10px;
+}
+.weather-title.sun{color:var(--gold)}
+.weather-title.rain{color:var(--navy)}
+
+.options{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:640px){.options{grid-template-columns:1fr 1fr}}
+
+.option{
+  position:relative;display:flex;flex-direction:column;
+  border:2px solid var(--gray-light);border-radius:12px;
+  padding:14px;background:var(--white);cursor:pointer;
+  transition:border-color .15s ease,background .15s ease,box-shadow .15s ease,transform .12s ease;
+  min-height:60px;
+}
+.option:hover{border-color:var(--navy-soft);box-shadow:var(--shadow-sm)}
+.option:active{transform:scale(.99)}
+.option input[type="radio"]{position:absolute;opacity:0;width:0;height:0;pointer-events:none}
+.option.selected{
+  border-color:var(--green);
+  background:linear-gradient(135deg,rgba(107,164,125,.14) 0%,rgba(74,124,89,.06) 100%);
+  box-shadow:0 0 0 3px rgba(74,124,89,.18);
+}
+.option.selected::after{
+  content:"✓";position:absolute;top:10px;right:12px;
+  width:30px;height:30px;background:var(--green);color:var(--white);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:1rem;
+}
+.option-name{
+  font-weight:800;font-size:1.04rem;
+  margin-bottom:6px;padding-right:36px;line-height:1.35;
+}
+.option-desc{font-size:.88rem;color:var(--gray);margin-bottom:10px;line-height:1.45}
+
+.badges{display:flex;flex-wrap:wrap;gap:6px}
+.badge{
+  display:inline-flex;align-items:center;gap:4px;
+  padding:5px 10px;border-radius:999px;
+  font-size:.78rem;font-weight:800;letter-spacing:.01em;
+}
+.badge.free{background:var(--green-light);color:var(--white)}
+.badge.cheap{background:var(--sand-dark);color:var(--navy-dark)}
+.badge.affordable{background:var(--gold);color:var(--navy-dark)}
+.badge.drive{background:var(--navy-soft);color:var(--white)}
+.badge.gen{background:var(--gray-light);color:var(--navy-dark)}
+
+/* FLOATING BUTTON */
+.floating-btn{
+  position:fixed;bottom:16px;left:16px;right:16px;
+  max-width:560px;margin:0 auto;
+  padding:16px 22px;border:none;border-radius:999px;
+  background:linear-gradient(135deg,var(--green) 0%,var(--green-dark) 100%);
+  color:var(--white);font-family:inherit;font-size:1.05rem;font-weight:900;
+  box-shadow:var(--shadow-lg);cursor:pointer;z-index:90;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.floating-btn:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(74,124,89,.4)}
+.floating-btn:active{transform:translateY(0)}
+.floating-btn.hidden{display:none}
+
+/* RESULTS */
+.results.hidden{display:none}
+.results{
+  background:var(--white);border-radius:var(--radius);
+  padding:20px;box-shadow:var(--shadow);margin-bottom:80px;
+}
+.results h2{color:var(--navy);font-size:1.4rem;margin-bottom:6px;font-weight:900}
+.results .sub{font-size:.9rem;color:var(--gray);margin-bottom:14px}
+
+.external-votes{
+  margin:14px 0;padding:14px;background:var(--sand-light);
+  border-radius:12px;border:1px dashed var(--sand-deep);
+}
+.external-votes h3{font-size:1rem;color:var(--navy);margin-bottom:6px;font-weight:800}
+.external-votes p.hint{font-size:.82rem;color:var(--gray);margin-bottom:10px}
+.external-votes textarea{
+  width:100%;min-height:120px;font-family:inherit;font-size:.9rem;
+  padding:10px;border:1px solid var(--gray-light);border-radius:10px;
+  resize:vertical;line-height:1.4;
+}
+.btn{
+  display:inline-block;padding:10px 16px;border:none;border-radius:10px;
+  font-family:inherit;font-weight:800;font-size:.92rem;cursor:pointer;
+  margin:8px 6px 0 0;transition:transform .12s ease,background .15s ease;
+}
+.btn:hover{transform:translateY(-1px)}
+.btn.primary{background:var(--navy);color:var(--white)}
+.btn.secondary{background:var(--gray);color:var(--white)}
+.btn.danger{background:var(--danger);color:var(--white)}
+.btn.ghost{background:transparent;color:var(--navy);border:2px solid var(--navy)}
+
+.external-list{margin-top:12px;font-size:.88rem}
+.external-list-item{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 4px;border-bottom:1px solid var(--gray-light);
+}
+.external-list-item:last-child{border-bottom:none}
+.external-list-empty{color:var(--gray);font-size:.85rem;padding:6px 0}
+
+.results-table{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.result-slot{
+  border:1px solid var(--sand-dark);border-radius:12px;
+  padding:12px 14px;background:var(--sand-light);
+}
+.result-slot h4{font-size:.98rem;color:var(--navy);margin-bottom:8px;font-weight:800}
+.result-weather-title{
+  font-size:.85rem;font-weight:800;color:var(--gray);
+  text-transform:uppercase;letter-spacing:.04em;margin:10px 0 4px;
+}
+.result-line{
+  display:flex;align-items:center;gap:8px;
+  margin:5px 0;font-size:.9rem;flex-wrap:wrap;
+}
+.result-line .name{flex:1 1 60%;min-width:140px}
+.result-line .count{
+  font-weight:900;color:var(--navy);font-size:1rem;
+  min-width:30px;text-align:right;
+}
+.bar{
+  flex:1 1 100%;background:var(--gray-light);
+  border-radius:999px;height:8px;overflow:hidden;margin-top:2px;
+}
+.bar>span{display:block;height:100%;background:var(--gray-med);transition:width .3s ease}
+.result-line.winner{
+  background:linear-gradient(90deg,rgba(107,164,125,.16) 0%,transparent 100%);
+  padding:8px 10px;border-radius:8px;border-left:4px solid var(--green);
+}
+.result-line.winner .name{font-weight:800;color:var(--navy-dark)}
+.result-line.winner .bar>span{background:var(--green)}
+.result-line.winner .count{color:var(--green-dark)}
+.no-votes{font-size:.85rem;color:var(--gray-med);font-style:italic;padding:4px 0}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:96px;left:50%;
+  transform:translateX(-50%) translateY(8px);
+  background:var(--navy-dark);color:var(--white);
+  padding:12px 20px;border-radius:12px;
+  font-weight:800;font-size:.95rem;
+  box-shadow:var(--shadow-lg);z-index:200;
+  opacity:0;pointer-events:none;
+  transition:opacity .25s ease,transform .25s ease;
+  max-width:90vw;text-align:center;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+
+/* MODAL */
+.modal-backdrop{
+  position:fixed;inset:0;background:rgba(15,42,65,.55);
+  display:flex;align-items:center;justify-content:center;
+  z-index:300;padding:16px;opacity:0;pointer-events:none;
+  transition:opacity .2s ease;
+}
+.modal-backdrop.show{opacity:1;pointer-events:auto}
+.modal{
+  background:var(--white);border-radius:16px;padding:20px;
+  max-width:500px;width:100%;max-height:80vh;overflow-y:auto;
+  box-shadow:var(--shadow-lg);
+}
+.modal h3{color:var(--navy);margin-bottom:10px;font-size:1.15rem;font-weight:900}
+.modal p{font-size:.88rem;color:var(--gray);margin-bottom:12px}
+.voter-edit-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
+.voter-edit-list label{font-size:.85rem;font-weight:700;color:var(--navy)}
+.voter-edit-list input{
+  font-family:inherit;font-size:1rem;padding:9px 12px;
+  border:1px solid var(--gray-light);border-radius:8px;
+  background:var(--sand-light);width:100%;
+}
+.voter-edit-list input:focus{outline:2px solid var(--navy-soft);border-color:var(--navy-soft)}
+
+@media(max-width:560px){
+  body{font-size:17px}
+  .header-titles h1{font-size:1.05rem}
+  .header-titles p{font-size:.8rem}
+  .voter-select{font-size:.95rem}
+  .btn-toggle{font-size:.85rem;padding:10px 12px}
+  .floating-btn{font-size:1rem;padding:14px 18px}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="header-titles">
+      <h1>🏖️ Vote Séjour La Panne</h1>
+      <p>17–21 octobre 2026 · Côte belge · 8 votants</p>
+    </div>
+    <div class="header-controls">
+      <label for="voter-select" class="sr-only">Qui vote ?</label>
+      <select id="voter-select" class="voter-select" aria-label="Sélection du votant"></select>
+      <button id="results-toggle" class="btn-toggle" aria-pressed="false">📊 Résultats</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="intro" id="intro">
+    <p>
+      👋 Choisis ton prénom en haut, puis vote pour chaque demi-journée (8 créneaux, dimanche matin → mercredi après-midi) :
+      <strong>☀️ si beau temps</strong> et <strong>🌧️ si mauvais temps</strong>.
+      Tout est sauvegardé automatiquement sur cet appareil.
+    </p>
+    <span class="hint">
+      📋 Quand tu as fini, appuie sur le gros bouton vert « Copier mon vote pour WhatsApp »,
+      puis colle-le dans la conversation du groupe. Le responsable du séjour pourra alors
+      importer tous les votes reçus via l'onglet « 📊 Résultats ».
+    </span>
+  </section>
+
+  <section id="cards" class="cards"></section>
+
+  <section id="results" class="results hidden" aria-live="polite">
+    <h2>📊 Synthèse des résultats</h2>
+    <p class="sub" id="results-summary"></p>
+
+    <div class="external-votes">
+      <h3>📥 Importer un vote reçu sur WhatsApp</h3>
+      <p class="hint">Colle ci-dessous le message formaté qu'un votant a partagé dans WhatsApp, puis clique sur « Ajouter ce vote ».</p>
+      <textarea id="external-textarea" placeholder="🏖️ MON VOTE — La Panne 17-21/10/2026
+👤 Marie
+
+═══ 1. Dim 18/10 — Matin ═══
+☀️ Randonnée dans la Réserve naturelle du Westhoek (De Panne)
+🌧️ Centre Nature Duinpanne (De Panne)
+..."></textarea>
+      <div>
+        <button class="btn primary" id="parse-btn">➕ Ajouter ce vote</button>
+        <button class="btn ghost" id="show-format-btn">📖 Voir le format attendu</button>
+      </div>
+      <div class="external-list" id="external-list"></div>
+      <div style="margin-top:6px">
+        <button class="btn danger" id="clear-external">🗑️ Tout effacer</button>
+      </div>
+    </div>
+
+    <div class="results-table" id="results-content"></div>
+  </section>
+
+  <button id="whatsapp-copy" class="floating-btn" type="button">📋 Copier mon vote pour WhatsApp</button>
+</main>
+
+<div id="toast" class="toast" role="status"></div>
+
+<div id="voter-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal">
+    <h3 id="modal-title">✏️ Personnaliser les prénoms</h3>
+    <p>Indique les prénoms des 8 votants du groupe WhatsApp. Clique sur « Enregistrer » quand c'est prêt.</p>
+    <div class="voter-edit-list" id="voter-edit-list"></div>
+    <div>
+      <button class="btn primary" id="save-voters">💾 Enregistrer</button>
+      <button class="btn ghost" id="cancel-voters">Annuler</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   DONNÉES DES ACTIVITÉS — 8 demi-journées × (2 ☀️ + 2 🌧️)
+   Période : fin octobre 2026 → pas de baignade, pas de repas (activités
+   seules). Toutes les activités existent réellement, sont recommandées
+   et situées à ≤ 45 min de route de La Panne (De Panne, BE).
+   Prices: 'free' = Gratuit | 'cheap' = Économique (<10€/pers)
+        | 'affordable' = Abordable (<50€/pers)
+   ========================================================= */
+const ACTIVITIES = [
+  { id:1, day:'Dim 18/10', slot:'Matin', context:'Premier grand matin (octobre = migration aviaire)',
+    sunny:[
+      {name:"Randonnée dans la Réserve naturelle du Westhoek (De Panne)",desc:"Plus grande réserve dunaire de Flandre. Sentiers faciles, miradors d'observation. Pic de migration aviaire en octobre : oies, gravelots, barges.",price:'free',drive:'5 min'},
+      {name:"Pêcheurs de crevettes à cheval à Oostduinkerke (UNESCO)",desc:"Patrimoine UNESCO immatériel. Tradition qui se poursuit en automne. Démonstrations sur la plage, gratuites. Vérifier les horaires d'octobre.",price:'free',drive:'15 min'}
+    ],
+    rainy:[
+      {name:"Centre Nature Duinpanne (De Panne)",desc:"Expositions interactives sur la dune et la mer, aquarium local, jardin sensoriel. Très adapté enfants 6+ et séniors. Abrité en cas de pluie.",price:'cheap',drive:'5 min'},
+      {name:"Grand-Place & beffroi de Veurne (Furnes)",desc:"Beffroi UNESCO, hôtel de ville renaissance, façades flamandes. Découverte à pied sous les arcades couvertes si pluie.",price:'free',drive:'20 min'}
+    ]
+  },
+  { id:2, day:'Dim 18/10', slot:'Après-midi', context:'Marche côtière ou musée',
+    sunny:[
+      {name:"Marche vivifiante sur la plage de La Panne",desc:"Marche sur le sable (sans baignade à cette saison), air iodé, collecte de coquillages. Les enfants font des châteaux de sable, les séniors marchent au bord.",price:'free',drive:'0 min'},
+      {name:"Vélo sur le réseau cyclable côtier vers Adinkerke",desc:"Pistes sécures, plates, le long de la digue. Loueurs face à la plage. Prévoir manteaux, gants et bonnet — vent frais en octobre.",price:'cheap',drive:'0 min'}
+    ],
+    rainy:[
+      {name:"Bakkerijmuseum — Musée de la Boulangerie (Furnes)",desc:"Bolstraat 14, Veurne. Musée (pas un repas) d'outils de boulange, démonstrations. ~6€ adultes, moins pour enfants.",price:'cheap',drive:'20 min'},
+      {name:"Musée NAVIGO (Équihen-Plage, France)",desc:"Musée des bateaux de pêche et de la construction navale, bâtiment couvert. Visite guidée possible, expo permanente très visuelle. ~6€.",price:'cheap',drive:'35 min'}
+    ]
+  },
+  { id:3, day:'Lun 19/10', slot:'Matin', context:'Cap vers Nieuwpoort',
+    sunny:[
+      {name:"Réserve naturelle de l'IJzermonding (Nieuwpoort)",desc:"Promontoires d'observation, sentier plat accessible. Pic de migration d'octobre : sterne, avocette, tadornes. Vue sur l'embouchure de l'Yser.",price:'free',drive:'30 min'},
+      {name:"Promenade au port de Nieuwpoort & phare",desc:"Port de pêche actif, vente à quai de poissons frais le matin. Phare photogénique, balade de quai facile pour tous âges.",price:'free',drive:'30 min'}
+    ],
+    rainy:[
+      {name:"LAAC — Musée d'Art Contemporain (Dunkerque)",desc:"Architecture lumineuse sur pilotis, collections XXe et XXIe. Entrée gratuite, expositions tournantes accessibles et abritées.",price:'free',drive:'35 min'},
+      {name:"Musée Portuaire de Dunkerque",desc:"Bateaux-musées, expo sur la vie de marin, hangars historiques couverts. Bon pour ados et grands-parents. ~7€ adultes.",price:'cheap',drive:'35 min'}
+    ]
+  },
+  { id:4, day:'Lun 19/10', slot:'Après-midi', context:'Journée Dunkerque',
+    sunny:[
+      {name:"Beffroi de Dunkerque (UNESCO) + centre-ville",desc:"Tour de l'église Saint-Éloi, vue panoramique si montée. Vieux Dunkerque, ruelles pavées, architectures flamandes. Balade urbaine.",price:'free',drive:'35 min'},
+      {name:"Marche à pied sur la digue de Dunkerque-Malo-les-Bains",desc:"Digue de sable fin, architectures Belle Époque. Marche facile au bord de l'eau (sans baignade). Bancs nombreux pour les séniors.",price:'free',drive:'35 min'}
+    ],
+    rainy:[
+      {name:"FRAC Grand Large — Art contemporain (Dunkerque)",desc:"Bâtiment emblématique en verre et acier, collections régionales, entrée gratuite. Expos ludiques pour ados, intérieur abrité.",price:'free',drive:'35 min'},
+      {name:"Musée mémorial de l'Opération Dynamo (Dunkerque)",desc:"Récit de l'évacuation de 1940, objets d'époque, témoignages. Fort impact pédagogique pour ados. ~5€. Bâtiment couvert.",price:'cheap',drive:'35 min'}
+    ]
+  },
+  { id:5, day:'Mar 20/10', slot:'Matin', context:'Marché & patrimoine',
+    sunny:[
+      {name:"Parc naturel des dunes de Cabour (Adinkerke)",desc:"Dunes calmes à l'automne, sentiers boisés aux teintes cuivrées. Idéal pour flâneries intergénérationnelles, panneaux botaniques.",price:'free',drive:'10 min'},
+      {name:"Abdij Ter Doest — Abbaye médiévale (Koksijde)",desc:"Restes gothiques XIIIe, portail majestueux, moulin adjacent. Site libre, accessible, très photogénique à la lumière d'octobre.",price:'free',drive:'15 min'}
+    ],
+    rainy:[
+      {name:"Kasteel van Beauvoorde (Veurne)",desc:"Château-ferme restauré, intérieurs d'époque, parc. Visite guidée chaleureuse et couverte. ~5€ adultes, moins pour enfants.",price:'cheap',drive:'25 min'},
+      {name:"Marché du mardi sur la Grand-Place de Veurne",desc:"Grand marché hebdomadaire animé, produits du terroir, fromages, laine, libraires. Flânerie sous halls couverts possible.",price:'free',drive:'20 min'}
+    ]
+  },
+  { id:6, day:'Mar 20/10', slot:'Après-midi', context:'Activités ludiques',
+    sunny:[
+      {name:"Balade à pied De Panne → Bray-Dunes (frontière franco-belge)",desc:"Sentier côtier plat le long de la plage jusqu'au panneau de la frontière. Belle lumière automnale, photo au panneau. Sans baignade.",price:'free',drive:'30 min'},
+      {name:"Vélo côtier De Panne → De Haan",desc:"Piste cyclable continue le long de la côte, plat et sécurisé. Possibilité de train retour. ~10€ loc. Prévoir manteaux.",price:'cheap',drive:'30 min'}
+    ],
+    rainy:[
+      {name:"Séance cinéma (Cinéma de la côte — De Panne/Veurne)",desc:"Films en VF/néerlandais selon salle. Tarifs familiaux (~10€/pers). Programme Halloween en cette fin octobre.",price:'cheap',drive:'10 min'},
+      {name:"Aquafun — piscine couverte à toboggans (Middelkerke)",desc:"Espace ludique couvert et chauffé, petits et grands toboggans. Idéal pour enfants et ados par mauvais temps. ~12€.",price:'cheap',drive:'30 min'}
+    ]
+  },
+  { id:7, day:'Mer 21/10', slot:'Matin', context:'Avant-dernier matin',
+    sunny:[
+      {name:"Marche matinale sur la digue de La Panne",desc:"Marche vivifiante au lever du jour, air iodé. Soleil matinal sur la mer du Nord (sans baignade). Idéal pour graver le paysage.",price:'free',drive:'0 min'},
+      {name:"Observation des oiseaux migrateurs au Westhoek (aube)",desc:"Pic de migration automnale. Apporter jumelles, observer depuis les miradors. Magique pour les curieux de nature de 6 à 70+ ans.",price:'free',drive:'5 min'}
+    ],
+    rainy:[
+      {name:"Montée du Beffroi de Veurne (47 marches, UNESCO)",desc:"Ascension du clocher-carillon, vue à 360° sur la côte et la plaine flamande. Bâtiment couvert. ~4€. Différent de la simple vue extérieure.",price:'cheap',drive:'20 min'},
+      {name:"Vismarkt — halle aux poissons historique de Veurne",desc:"Bâtiment couvert du XVIe, ancien marché aux poissons. Architecture intérieure remarquable, à deux pas de la Grand-Place.",price:'free',drive:'20 min'}
+    ]
+  },
+  { id:8, day:'Mer 21/10', slot:'Après-midi', context:'Avant le départ',
+    sunny:[
+      {name:"Dernière promenade digue & dunes de La Panne",desc:"Boucle à pied de 30–45 min, très accessible, pour graver le paysage. Photos de groupe face à la mer (sans baignade).",price:'free',drive:'0 min'},
+      {name:"Coucher de soleil + photos souvenir plage",desc:"Timing selon heure de départ. Coin digue de La Panne, lumière dorée parfaite pour les portraits de groupe avant départ.",price:'free',drive:'0 min'}
+    ],
+    rainy:[
+      {name:"Balade couverte dans les ruelles historiques de Veurne",desc:"Ruelles pavées, arcades et passages couverts de la Grand-Place. Idéal par temps humide, sans bobos pour les séniors.",price:'free',drive:'20 min'},
+      {name:"Souvenirs dernière minute à La Panne",desc:"Boutiques face à la digue, gaufres à emporter, sel de mer, postcards. Course express avant le départ en après-midi.",price:'free',drive:'0 min'}
+    ]
+  }
+];
+
+/* ===================== STORAGE ===================== */
+const VOTERS_KEY='laPanne2026_voters';
+const VOTES_KEY='laPanne2026_votes';
+const EXTERNAL_KEY='laPanne2026_external';
+const CURRENT_VOTER_KEY='laPanne2026_currentVoter';
+
+const DEFAULT_VOTERS=['Catherine','Marcel','Camille','Elise','Manon','Jérémie','Jonathan','Magali'];
+
+let voters = JSON.parse(localStorage.getItem(VOTERS_KEY) || 'null') || [...DEFAULT_VOTERS];
+let votes = JSON.parse(localStorage.getItem(VOTES_KEY) || '{}');           // {voter: {slotId: {sunny:idx, rainy:idx}}}
+let externalVotes = JSON.parse(localStorage.getItem(EXTERNAL_KEY) || '[]'); // [{voter, votes:{slotId:{sunny,rainy}}}]
+let currentVoter = localStorage.getItem(CURRENT_VOTER_KEY) || voters[0];
+if (!voters.includes(currentVoter)) currentVoter = voters[0];
+
+/* ===================== PRICE LABELS ===================== */
+function priceLabel(p){
+  if(p==='free') return '💶 Gratuit';
+  if(p==='cheap') return '💶 Économique';
+  if(p==='affordable') return '💶 Abordable';
+  return '💶 '+p;
+}
+function priceClass(p){
+  if(p==='free') return 'free';
+  if(p==='cheap') return 'cheap';
+  if(p==='affordable') return 'affordable';
+  return 'cheap';
+}
+
+/* ===================== RENDER VOTER SELECT ===================== */
+function renderVoterSelect(){
+  const sel=document.getElementById('voter-select');
+  sel.innerHTML='';
+  voters.forEach(v=>{
+    const o=document.createElement('option');
+    o.value=v; o.textContent='👤 '+v;
+    if(v===currentVoter) o.selected=true;
+    sel.appendChild(o);
+  });
+  const edit=document.createElement('option');
+  edit.value='__edit__';
+  edit.textContent='✏️ Personnaliser les prénoms...';
+  sel.appendChild(edit);
+}
+
+/* ===================== RENDER CARDS ===================== */
+function renderCards(){
+  const c=document.getElementById('cards');
+  c.innerHTML='';
+  ACTIVITIES.forEach(slot=>{
+    const card=document.createElement('article');
+    card.className='slot-card';
+    card.innerHTML=`
+      <div class="slot-header">
+        <span class="slot-num">${slot.id}</span>
+        <h2>${slot.day} — ${slot.slot}</h2>
+        <span class="slot-sub">${slot.context}</span>
+      </div>
+      <div class="weather-section sun">
+        <div class="weather-title sun">☀️ Si beau temps</div>
+        <div class="options" data-slot="${slot.id}" data-weather="sunny"></div>
+      </div>
+      <div class="weather-section rain">
+        <div class="weather-title rain">🌧️ Si mauvais temps</div>
+        <div class="options" data-slot="${slot.id}" data-weather="rainy"></div>
+      </div>`;
+    c.appendChild(card);
+
+    ['sunny','rainy'].forEach(w=>{
+      const wrap = card.querySelector(`.options[data-slot="${slot.id}"][data-weather="${w}"]`);
+      slot[w].forEach((act,i)=>{
+        const lab=document.createElement('label');
+        lab.className='option';
+        lab.dataset.slotId=slot.id;
+        lab.dataset.weather=w;
+        lab.dataset.idx=i;
+        lab.innerHTML=`
+          <input type="radio" name="slot-${slot.id}-${w}" value="${i}" />
+          <div class="option-name">${act.name}</div>
+          <div class="option-desc">${act.desc}</div>
+          <div class="badges">
+            <span class="badge ${priceClass(act.price)}">${priceLabel(act.price)}</span>
+            <span class="badge drive">🚗 ${act.drive}</span>
+            <span class="badge gen">👨‍👩‍👧‍👦 6–70+ ans</span>
+          </div>`;
+        wrap.appendChild(lab);
+      });
+    });
+  });
+  updateSelectionUI();
+}
+
+/* ===================== SELECTION UI ===================== */
+function updateSelectionUI(){
+  document.querySelectorAll('.option').forEach(opt=>{
+    const sid=parseInt(opt.dataset.slotId);
+    const w=opt.dataset.weather;
+    const i=parseInt(opt.dataset.idx);
+    const myVote = votes[currentVoter]?.[sid]?.[w];
+    const isSel = (myVote===i);
+    opt.classList.toggle('selected', isSel);
+    const inp = opt.querySelector('input');
+    if(inp) inp.checked = isSel;
+  });
+  updateResults();
+}
+
+/* ===================== EVENT: CHANGE RADIO ===================== */
+document.addEventListener('change', e=>{
+  if(e.target.matches('input[type="radio"]')){
+    const lab = e.target.closest('.option');
+    if(!lab) return;
+    const sid = parseInt(lab.dataset.slotId);
+    const w = lab.dataset.weather;
+    const i = parseInt(lab.dataset.idx);
+    if(!votes[currentVoter]) votes[currentVoter]={};
+    if(!votes[currentVoter][sid]) votes[currentVoter][sid]={};
+    votes[currentVoter][sid][w]=i;
+    localStorage.setItem(VOTES_KEY, JSON.stringify(votes));
+    updateSelectionUI();
+  }
+});
+
+/* ===================== EVENT: VOTER SELECT ===================== */
+document.getElementById('voter-select').addEventListener('change', e=>{
+  if(e.target.value==='__edit__'){
+    openVoterModal();
+    // Reset selection to currentVoter (so dropdown doesn't stay on __edit__)
+    setTimeout(()=>{
+      e.target.value = currentVoter;
+    },0);
+    return;
+  }
+  currentVoter = e.target.value;
+  localStorage.setItem(CURRENT_VOTER_KEY, currentVoter);
+  updateSelectionUI();
+});
+
+/* ===================== VOTER MODAL ===================== */
+function openVoterModal(){
+  const list = document.getElementById('voter-edit-list');
+  list.innerHTML='';
+  voters.forEach((v,i)=>{
+    const wrap = document.createElement('div');
+    wrap.innerHTML = `<label for="voter-${i}">Votant ${i+1}</label>
+      <input id="voter-${i}" type="text" value="${v.replace(/"/g,'&quot;')}" maxlength="30" />`;
+    list.appendChild(wrap);
+  });
+  document.getElementById('voter-modal').classList.add('show');
+}
+function closeVoterModal(){
+  document.getElementById('voter-modal').classList.remove('show');
+}
+document.getElementById('save-voters').addEventListener('click', ()=>{
+  const inputs = document.querySelectorAll('#voter-edit-list input');
+  const newVoters = [];
+  inputs.forEach(inp=>{
+    const val = inp.value.trim();
+    newVoters.push(val || ('Participant '+(newVoters.length+1)));
+  });
+  // Preserve current voter name if it still exists
+  voters = newVoters;
+  if(!voters.includes(currentVoter)) currentVoter = voters[0];
+  localStorage.setItem(VOTERS_KEY, JSON.stringify(voters));
+  localStorage.setItem(CURRENT_VOTER_KEY, currentVoter);
+  renderVoterSelect();
+  updateSelectionUI();
+  closeVoterModal();
+  showToast('✅ Prénoms enregistrés');
+});
+document.getElementById('cancel-voters').addEventListener('click', closeVoterModal);
+document.getElementById('voter-modal').addEventListener('click', e=>{
+  if(e.target.id==='voter-modal') closeVoterModal();
+});
+
+/* ===================== WHATSAPP EXPORT ===================== */
+function generateWhatsAppText(){
+  let t = `🏖️ MON VOTE — La Panne 17-21/10/2026\n👤 ${currentVoter}\n\n`;
+  ACTIVITIES.forEach(slot=>{
+    const sv = votes[currentVoter]?.[slot.id] || {};
+    const sunName = sv.sunny!==undefined ? slot.sunny[sv.sunny].name : '(à choisir)';
+    const rainName = sv.rainy!==undefined ? slot.rainy[sv.rainy].name : '(à choisir)';
+    t += `═══ ${slot.id}. ${slot.day} — ${slot.slot} ═══\n`;
+    t += `☀️ ${sunName}\n`;
+    t += `🌧️ ${rainName}\n\n`;
+  });
+  return t.trim();
+}
+
+document.getElementById('whatsapp-copy').addEventListener('click', async ()=>{
+  const text = generateWhatsAppText();
+  try{
+    await navigator.clipboard.writeText(text);
+    showToast('✅ Vote copié ! Collez-le dans WhatsApp');
+  }catch(err){
+    // Fallback for older browsers / non-secure context
+    const ta=document.createElement('textarea');
+    ta.value=text;
+    ta.style.position='fixed';
+    ta.style.top='-1000px';
+    document.body.appendChild(ta);
+    ta.focus();
+    ta.select();
+    try{
+      document.execCommand('copy');
+      showToast('✅ Vote copié ! Collez-le dans WhatsApp');
+    }catch(e2){
+      alert('Copie automatique impossible. Voici votre vote à copier manuellement :\n\n'+text);
+    }
+    document.body.removeChild(ta);
+  }
+});
+
+/* ===================== TOAST ===================== */
+let toastTimer=null;
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),2800);
+}
+
+/* ===================== RESULTS TOGGLE ===================== */
+let resultsVisible=false;
+document.getElementById('results-toggle').addEventListener('click', ()=>{
+  resultsVisible=!resultsVisible;
+  document.getElementById('results').classList.toggle('hidden', !resultsVisible);
+  document.getElementById('cards').classList.toggle('hidden', resultsVisible);
+  document.getElementById('intro').classList.toggle('hidden', resultsVisible);
+  document.getElementById('whatsapp-copy').classList.toggle('hidden', resultsVisible);
+  const btn=document.getElementById('results-toggle');
+  btn.textContent = resultsVisible ? '🗳️ Retour au vote' : '📊 Résultats';
+  btn.setAttribute('aria-pressed', String(resultsVisible));
+  if(resultsVisible) updateResults();
+});
+
+/* ===================== PARSE WHATSAPP TEXT ===================== */
+function parseWhatsAppText(text){
+  const lines = text.split('\n').map(l=>l.trim());
+  let voter='Externe';
+  let slotId=null;
+  const result={};
+  for(const line of lines){
+    if(!line) continue;
+    const vm = line.match(/^👤\s*(.+)$/);
+    if(vm){ voter = vm[1].trim(); continue; }
+    const sm = line.match(/^══+\s*(.+?)\s*══+$/);
+    if(sm){
+      const title = sm[1].trim();
+      // Title format: "1. Sam 17/10 — Soir" — extract id
+      const idm = title.match(/^(\d+)/);
+      if(idm){
+        slotId = parseInt(idm[1]);
+        if(!ACTIVITIES.find(s=>s.id===slotId)) slotId=null;
+        if(slotId) result[slotId]=result[slotId]||{};
+      }
+      continue;
+    }
+    if(line.startsWith('☀️')){
+      const name = line.replace(/^☀️\s*/,'').trim();
+      if(name && name!=='(à choisir)' && slotId){
+        const slot = ACTIVITIES.find(s=>s.id===slotId);
+        if(slot){
+          const idx = slot.sunny.findIndex(a=> a.name===name || name.startsWith(a.name) || a.name.startsWith(name) || fuzzyMatch(a.name,name));
+          if(idx>=0) result[slotId].sunny=idx;
+        }
+      }
+    }else if(line.startsWith('🌧️')){
+      const name = line.replace(/^🌧️\s*/,'').trim();
+      if(name && name!=='(à choisir)' && slotId){
+        const slot = ACTIVITIES.find(s=>s.id===slotId);
+        if(slot){
+          const idx = slot.rainy.findIndex(a=> a.name===name || name.startsWith(a.name) || a.name.startsWith(name) || fuzzyMatch(a.name,name));
+          if(idx>=0) result[slotId].rainy=idx;
+        }
+      }
+    }
+  }
+  return {voter, votes:result};
+}
+function fuzzyMatch(a,b){
+  // Token overlap: at least 2 shared words (length>3), case-insensitive, accent-insensitive
+  const norm = s => s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\w\s]/g,' ');
+  const ta = norm(a).split(/\s+/).filter(w=>w.length>3);
+  const tb = norm(b).split(/\s+/).filter(w=>w.length>3);
+  if(ta.length===0||tb.length===0) return false;
+  let common=0;
+  ta.forEach(w=>{ if(tb.includes(w)) common++; });
+  return common>=2;
+}
+
+document.getElementById('parse-btn').addEventListener('click', ()=>{
+  const txt = document.getElementById('external-textarea').value;
+  if(!txt.trim()){ showToast('❌ Collez d\'abord un vote'); return; }
+  const parsed = parseWhatsAppText(txt);
+  if(Object.keys(parsed.votes).length===0){
+    showToast('❌ Aucun vote reconnu');
+    return;
+  }
+  externalVotes.push(parsed);
+  localStorage.setItem(EXTERNAL_KEY, JSON.stringify(externalVotes));
+  document.getElementById('external-textarea').value='';
+  renderExternalList();
+  updateResults();
+  showToast(`✅ Vote de ${parsed.voter} ajouté`);
+});
+
+document.getElementById('show-format-btn').addEventListener('click', ()=>{
+  const sample = `🏖️ MON VOTE — La Panne 17-21/10/2026
+👤 Marie
+
+═══ 1. Dim 18/10 — Matin ═══
+☀️ Randonnée dans la Réserve naturelle du Westhoek (De Panne)
+🌧️ Centre Nature Duinpanne (De Panne)
+
+═══ 2. Dim 18/10 — Après-midi ═══
+☀️ Marche vivifiante sur la plage de La Panne
+🌧️ Bakkerijmuseum — Musée de la Boulangerie (Furnes)
+
+(… et ainsi de suite pour les 8 créneaux)`;
+  const ta=document.getElementById('external-textarea');
+  if(!ta.value.trim()) ta.value=sample;
+  else ta.value += '\n\n--- EXEMPLE ---\n'+sample;
+  ta.focus();
+});
+
+document.getElementById('clear-external').addEventListener('click', ()=>{
+  if(externalVotes.length===0){ showToast('Rien à effacer'); return; }
+  if(confirm('Supprimer tous les votes externes ?')){
+    externalVotes=[];
+    localStorage.setItem(EXTERNAL_KEY, JSON.stringify(externalVotes));
+    renderExternalList();
+    updateResults();
+    showToast('🗑️ Votes externes effacés');
+  }
+});
+
+/* ===================== EXTERNAL LIST ===================== */
+function renderExternalList(){
+  const list=document.getElementById('external-list');
+  list.innerHTML='';
+  if(externalVotes.length===0){
+    list.innerHTML='<div class="external-list-empty">Aucun vote externe importé.</div>';
+    return;
+  }
+  externalVotes.forEach((ev,i)=>{
+    const div=document.createElement('div');
+    div.className='external-list-item';
+    const cnt = Object.keys(ev.votes).length;
+    div.innerHTML=`<span><strong>${escapeHtml(ev.voter)}</strong> — ${cnt} créneau${cnt>1?'x':''} complété${cnt>1?'s':''}</span>`;
+    const btn=document.createElement('button');
+    btn.textContent='🗑️';
+    btn.className='btn danger';
+    btn.style.cssText='padding:6px 10px;font-size:.8rem;margin:0;';
+    btn.setAttribute('aria-label', 'Supprimer le vote de '+ev.voter);
+    btn.addEventListener('click', ()=>{
+      externalVotes.splice(i,1);
+      localStorage.setItem(EXTERNAL_KEY, JSON.stringify(externalVotes));
+      renderExternalList();
+      updateResults();
+    });
+    div.appendChild(btn);
+    list.appendChild(div);
+  });
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+
+/* ===================== RESULTS RENDER ===================== */
+function updateResults(){
+  const totals={};
+  ACTIVITIES.forEach(s=>{ totals[s.id]={sunny:[0,0],rainy:[0,0]}; });
+
+  // Device votes
+  Object.values(votes).forEach(voterVotes=>{
+    if(!voterVotes) return;
+    Object.entries(voterVotes).forEach(([sid,ws])=>{
+      const i=parseInt(sid);
+      if(!totals[i]) return;
+      if(ws.sunny!==undefined && totals[i].sunny[ws.sunny]!==undefined) totals[i].sunny[ws.sunny]++;
+      if(ws.rainy!==undefined && totals[i].rainy[ws.rainy]!==undefined) totals[i].rainy[ws.rainy]++;
+    });
+  });
+
+  // External votes
+  externalVotes.forEach(ev=>{
+    Object.entries(ev.votes).forEach(([sid,ws])=>{
+      const i=parseInt(sid);
+      if(!totals[i]) return;
+      if(ws.sunny!==undefined && totals[i].sunny[ws.sunny]!==undefined) totals[i].sunny[ws.sunny]++;
+      if(ws.rainy!==undefined && totals[i].rainy[ws.rainy]!==undefined) totals[i].rainy[ws.rainy]++;
+    });
+  });
+
+  const summary = document.getElementById('results-summary');
+  const devCount = Object.keys(votes).length;
+  const totalCount = devCount + externalVotes.length;
+  summary.textContent = `${totalCount} vote(s) cumulé(s) au total — ${devCount} sur cet appareil, ${externalVotes.length} importé(s) depuis WhatsApp.`;
+
+  const c=document.getElementById('results-content');
+  c.innerHTML='';
+
+  ACTIVITIES.forEach(slot=>{
+    const t=totals[slot.id];
+    const div=document.createElement('div');
+    div.className='result-slot';
+    let html = `<h4>${slot.id}. ${slot.day} — ${slot.slot} <span style="color:var(--gray);font-weight:600;font-size:.85rem">(${slot.context})</span></h4>`;
+    html += renderWeatherLine('☀️ Beau temps', slot.sunny, t.sunny);
+    html += renderWeatherLine('🌧️ Mauvais temps', slot.rainy, t.rainy);
+    div.innerHTML=html;
+    c.appendChild(div);
+  });
+}
+
+function renderWeatherLine(label, acts, counts){
+  const total = counts.reduce((a,b)=>a+b,0);
+  const max = Math.max(...counts);
+  let html = `<div class="result-weather-title">${label} <span style="color:var(--gray-med);font-weight:600;text-transform:none">— ${total} vote${total>1?'s':''}</span></div>`;
+  if(total===0){
+    html += '<div class="no-votes">Pas encore de vote pour cette météo.</div>';
+    return html;
+  }
+  acts.forEach((act,i)=>{
+    const isWinner = max>0 && counts[i]===max;
+    const pct = total>0 ? Math.round(counts[i]/total*100) : 0;
+    const safeName = escapeHtml(act.name);
+    const trophy = isWinner ? '🏆 ' : '';
+    html += `
+      <div class="result-line ${isWinner?'winner':''}">
+        <span class="name">${trophy}${safeName}</span>
+        <span class="count">${counts[i]}</span>
+        <div class="bar"><span style="width:${pct}%"></span></div>
+      </div>`;
+  });
+  return html;
+}
+
+/* ===================== INIT ===================== */
+renderVoterSelect();
+renderCards();
+renderExternalList();
+updateResults();
+</script>
+</body>
+</html>
